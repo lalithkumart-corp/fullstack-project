@@ -1,0 +1,4 @@
+[Tue Sep 05 10:44:44.213546 2017] [:error] [pid 1388] [client 127.0.0.1:50664] script '/Users/lalith_kumar/workspace/codeignitor-prj/index.php' not found or unable to stat
+[Tue Sep 05 10:46:21.731191 2017] [:error] [pid 1717] [client 127.0.0.1:50691] script '/Users/lalith_kumar/workspace/codeignitor-prj/index.php' not found or unable to stat
+[Tue Sep 05 18:40:10.615809 2017] [:error] [pid 15075] [client 127.0.0.1:53832] script '/Users/lalith_kumar/workspace/codeignitor-prj/userprofile.php' not found or unable to stat
+[Tue Sep 05 18:42:15.496636 2017] [:error] [pid 15075] [client 127.0.0.1:54286] script '/Users/lalith_kumar/workspace/codeignitor-prj/index.php' not found or unable to stat
