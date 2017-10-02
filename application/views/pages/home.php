@@ -8,6 +8,10 @@ require_once (APPPATH.'helpers/util.php');
 	<title>Welcome to Home page</title>
 	<!-- <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script> -->
 	<?php
+		
+		// importJS(site_url('/assets/js/lib/jquery-3.2.1.min.js')); ---- > Working! (But load Uri-Helper model)
+		// importJS('/assets/js/lib/jquery-3.2.1.min.js'); ---- > Working!
+		
 		importJS('assets/js/lib/jquery-3.2.1.min.js');
 		importJS('assets/js/frameworks/core.js');
 	?>
@@ -17,10 +21,10 @@ require_once (APPPATH.'helpers/util.php');
 		});
 		function bindEvents(){
 			$('.get-profile').on('click', function(e){
-				call('http://ciproject/api/profile/get-profile');
+				call('/api/profile/get-profile');
 			});
 			$('.action-btn').on('click', function(e){
-				call('http://ciproject/api/results/get-results');
+				call('/api/results/get-results');
 			});
 		}
 		function call(theUrl){
@@ -50,4 +54,4 @@ require_once (APPPATH.'helpers/util.php');
 	<input type='button' value='Get Results' class='action-btn'/>
 </body>
 
-</head>
+</html>
