@@ -4,6 +4,7 @@ require_once(APPPATH . 'libraries/HttpHelper.php');
 class Router extends MyCoreController {
     public $uriPathArray = '';
     public function index(){
+        //$this->output->enable_profiler(TRUE);
         $theUri =  $this->uri->uri_string();
         $this->parseUri($theUri);
         //$this->printRequestParams();
@@ -73,19 +74,39 @@ class Router extends MyCoreController {
     }
 
     function getModelAndMeth(){
-        return $this->uriPathArray[1].'/'.$this->uriPathArray[2];
+        $returnVal = $this->uriPathArray[1];
+
+        if(isset($this->uriPathArray['2']))
+            $returnVal .= '/'.$this->uriPathArray['2'];
+
+        return $returnVal;
     }
 
     function generateResponse($theModelAndMeth){
+        $myResponse = new stdClass();
+        $myResponse->status = 'Success';
+        $myResponse->uri = $this->getModelAndMeth();
         switch($theModelAndMeth){
             case 'profile/get-profile':
                 $this->load->model('user_profile', 'profile');
-                echo $this->profile->getDetails();
+                $myResponse->BODY = $this->profile->getDetails();
                 break;
             case 'results/get-results':
                 $this->load->model('results_model', 'myResults');
-                echo $this->myResults->getResults();
+                $myResponse->BODY = $this->myResults->getResults();
+                break;
+            case 'user/list':
+                $this->load->model('user_model', 'userModel');
+                $myResponse->BODY = $this->userModel->getUserList();
+                break;
+            case 'error':
+                show_404();
+                break;
+            case 'practice':
+                $this->load->model('common_model', 'commonModel');
+                $myResponse->BODY = $this->commonModel->getSessionVal();
                 break;
         }
+        echo json_encode($myResponse);
     }
 }
