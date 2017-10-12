@@ -86,27 +86,42 @@ class Router extends MyCoreController {
         $myResponse = new stdClass();
         $myResponse->status = 'Success';
         $myResponse->uri = $this->getModelAndMeth();
-        switch($theModelAndMeth){
-            case 'profile/get-profile':
-                $this->load->model('user_profile', 'profile');
-                $myResponse->BODY = $this->profile->getDetails();
+        switch($_SERVER['REQUEST_METHOD']) {
+           case 'GET':
+                switch($theModelAndMeth){
+                    case 'profile/get-profile':
+                        $this->load->model('user_profile', 'profile');
+                        $myResponse->BODY = $this->profile->getDetails();
+                        break;
+                    case 'results/get-results':
+                        $this->load->model('results_model', 'myResults');
+                        $myResponse->BODY = $this->myResults->getResults();
+                        break;
+                    case 'user/list':
+                        $this->load->model('user_model', 'userModel');
+                        $myResponse->BODY = $this->userModel->getUserList();
+                        break;
+                    case 'error':
+                        show_404();
+                        break;
+                    case 'practice':
+                        $this->load->model('common_model', 'commonModel');
+                        $myResponse->BODY = $this->commonModel->getSessionVal();
+                        break;
+                    case 'comments':
+                        $this->load->model('comments', 'comments');
+                        $myResponse->BODY = $this->comments->getComments();
+                        break;
+                }
                 break;
-            case 'results/get-results':
-                $this->load->model('results_model', 'myResults');
-                $myResponse->BODY = $this->myResults->getResults();
-                break;
-            case 'user/list':
-                $this->load->model('user_model', 'userModel');
-                $myResponse->BODY = $this->userModel->getUserList();
-                break;
-            case 'error':
-                show_404();
-                break;
-            case 'practice':
-                $this->load->model('common_model', 'commonModel');
-                $myResponse->BODY = $this->commonModel->getSessionVal();
-                break;
-        }
+            case 'POST':
+                switch($theModelAndMeth){
+                    case 'comments':
+                        $this->load->model('comments', 'comments');
+                        $myResponse->BODY = $this->comments->updateComments();
+                        break;
+                }
+           };        
         echo json_encode($myResponse);
     }
 }
